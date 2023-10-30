@@ -45,7 +45,7 @@ The cities with the highest level of transaction revenue:
 
 ![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/40e1eca5-dde1-44f0-9965-fb8b7bc992e9)
 
-It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate.  
+*It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate. Equally, when we look at cities, further chunk of data is filtered out due to the fact that many rows for cities are 'not anailable in demo dataset'.  
 
 
 
@@ -87,18 +87,45 @@ WITH countrytotals AS (
 )
 SELECT
     country,
-    total_quantityordered / total_unique_visitors AS avg_quantityordered -- represents the average number of products ordered per unique visitors
+    total_quantityordered / total_unique_visitors AS avg_quantityordered, -- represents the average number of products ordered per unique visitors
+    total_unique_visitors
 FROM
     countrytotals
 ORDER BY avg_quantityordered DESC;
 
-
+-- returns average quantity ordered from visitors by country and city
+WITH citytotals AS ( 
+    SELECT
+        country,
+		city,
+        SUM(quantityordered) AS total_quantityordered, -- total quantity ordered from all visitors by country and city
+        COUNT(DISTINCT fullvisitorid) AS total_unique_visitors -- total counts of unique visitors by country and city
+    FROM
+        productsold
+    GROUP BY
+        country, city
+)
+SELECT
+    country,
+	city,
+    total_quantityordered / total_unique_visitors AS avg_quantityordered, -- represents the average number of products ordered per unique visitors
+	total_unique_visitors
+FROM
+    citytotals
+WHERE city <> 'not available in demo dataset' -- filtering out undefined data 
+ORDER BY avg_quantityordered DESC;
 
 Answer:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/8d675123-2420-4ee2-962e-3992b3d85386)
+Average number of products ordered from visitors by country:
 
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/c4f679d5-be0c-4c57-8be0-5f9672042cd3)
 
+Average number of products ordered from visitors by country and city:
+
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/c58f321c-841a-4593-8690-7be1ef880bc0)
+
+*Some city/country have very few unique visitors which can skew the results. If they have a high average number of orders it could possibly be a company buying in bulk.
 
 
 **Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
