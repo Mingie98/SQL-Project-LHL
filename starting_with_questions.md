@@ -6,9 +6,45 @@ Answer the following questions and provide the SQL queries used to find the answ
 
 SQL Queries:
 
+-- Creating a temp table with totaltransactionrevenue cleaned of extra 0s
+CREATE TEMP TABLE all_sessionsv1(
+	country VARCHAR,
+	city VARCHAR,
+	totaltransactionrevenue NUMERIC 
+);
+
+INSERT INTO all_sessionsv1 (country, city, totaltransactionrevenue)
+	SELECT 
+		country,
+		city,
+		CAST(totaltransactionrevenue AS NUMERIC)/1000000 AS totaltransactionrevenue -- clean out the extra 0s
+	FROM all_sessions
+	WHERE CAST(totaltransactionrevenue AS NUMERIC) IS NOT NULL -- filter out all NULL values
+
+-- Countries with the highest transaction revenue 
+SELECT country, SUM(totaltransactionrevenue) 
+FROM all_sessionsv1 
+GROUP BY country 
+ORDER BY SUM(totaltransactionrevenue) DESC
+
+-- Cities and their respective country with the highest transaction revenue
+SELECT country, city, SUM(totaltransactionrevenue) 
+FROM all_sessionsv1 
+GROUP BY country, city
+ORDER BY SUM(totaltransactionrevenue) DESC
 
 
 Answer:
+
+The country with the highest level of transaction revenue is the United States with 13,154.17
+
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/34ec1e36-2236-4f20-ba3a-bff687ddf888)
+
+The cities with the highest level of transaction revenue:
+
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/92b173bd-feae-4fee-abb9-c5cc899f4d13)
+
+It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate.
 
 
 
