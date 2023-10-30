@@ -19,19 +19,20 @@ INSERT INTO all_sessionsv1 (country, city, totaltransactionrevenue)
 		city,
 		CAST(totaltransactionrevenue AS NUMERIC)/1000000 AS totaltransactionrevenue -- clean out the extra 0s
 	FROM all_sessions
-	WHERE CAST(totaltransactionrevenue AS NUMERIC) IS NOT NULL -- filter out all NULL values
+	WHERE CAST(totaltransactionrevenue AS NUMERIC) IS NOT NULL; -- filter out all NULL values
 
 -- Countries with the highest transaction revenue 
 SELECT country, SUM(totaltransactionrevenue) 
 FROM all_sessionsv1 
 GROUP BY country 
-ORDER BY SUM(totaltransactionrevenue) DESC
+ORDER BY SUM(totaltransactionrevenue) DESC;
 
 -- Cities and their respective country with the highest transaction revenue
 SELECT country, city, SUM(totaltransactionrevenue) 
 FROM all_sessionsv1 
+WHERE city <> 'not available in demo dataset' -- filtering out cities that are not defined
 GROUP BY country, city
-ORDER BY SUM(totaltransactionrevenue) DESC
+ORDER BY SUM(totaltransactionrevenue) DESC;
 
 
 Answer:
@@ -42,9 +43,9 @@ The country with the highest level of transaction revenue is the United States w
 
 The cities with the highest level of transaction revenue:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/92b173bd-feae-4fee-abb9-c5cc899f4d13)
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/40e1eca5-dde1-44f0-9965-fb8b7bc992e9)
 
-It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate. Also, the highest transaction revenue city is 'not available in demo dataset' which should be considered as a NULL value and again, reflecting that the database is incomplete. 
+It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate.  
 
 
 
@@ -71,7 +72,7 @@ INSERT INTO productsold (fullvisitorid, country, city, quantityordered)
 	FROM all_sessions als
 	JOIN analytics a ON als.fullvisitorid = a.fullvisitorid
 	JOIN products
-	WHERE CAST(a.units_sold AS INT) >= 1 -- filtering out NULL values and 0 values
+	WHERE CAST(a.units_sold AS INT) >= 1 -- filtering out NULL values and 0 values;
 
 -- returns average quantity ordered from visitors by country
 WITH countrytotals AS ( 
