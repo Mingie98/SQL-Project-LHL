@@ -125,7 +125,7 @@ Average number of products ordered from visitors by country and city:
 
 ![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/c58f321c-841a-4593-8690-7be1ef880bc0)
 
-*Some city/country have very few unique visitors which can skew the results. If they have a high average number of orders it could possibly be a company buying in bulk.
+*Some city/country have very few unique visitors which can skew the results of the average number of products ordered. If they have a high average number of orders it could possibly be a company buying in bulk like in the case of Charlotte, United States.
 
 
 **Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
