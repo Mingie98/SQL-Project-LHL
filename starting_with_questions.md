@@ -54,10 +54,48 @@ It is important to note however that the data is rather incomplete. After filter
 
 SQL Queries:
 
+-- Creating a temp table that joins columns from all_sessions and analytics tables (quantityordered = units_sold FROM analytics)
+CREATE TEMP TABLE productsold(
+	fullvisitorid VARCHAR,
+	country VARCHAR,
+	city VARCHAR,
+	quantityordered INT,
+);
+
+INSERT INTO productsold (fullvisitorid, country, city, quantityordered)
+	SELECT 
+		als.fullvisitorid,
+		als.country,
+		als.city,
+		CAST(a.units_sold AS INT) -- renamed to quantityordered in the temp table
+	FROM all_sessions als
+	JOIN analytics a ON als.fullvisitorid = a.fullvisitorid
+	JOIN products
+	WHERE CAST(a.units_sold AS INT) >= 1 -- filtering out NULL values and 0 values
+
+-- returns average quantity ordered from visitors by country
+WITH countrytotals AS ( 
+    SELECT
+        country,
+        SUM(quantityordered) AS total_quantityordered, -- total quantity ordered from all visitors by country
+        COUNT(DISTINCT fullvisitorid) AS total_unique_visitors -- total counts of unique visitors by country
+    FROM
+        productsold
+    GROUP BY
+        country
+)
+SELECT
+    country,
+    total_quantityordered / total_unique_visitors AS avg_quantityordered -- represents the average number of products ordered per unique visitors
+FROM
+    countrytotals
+ORDER BY avg_quantityordered DESC;
+
 
 
 Answer:
 
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/8d675123-2420-4ee2-962e-3992b3d85386)
 
 
 
