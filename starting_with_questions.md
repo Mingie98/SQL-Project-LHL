@@ -44,7 +44,7 @@ The cities with the highest level of transaction revenue:
 
 ![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/92b173bd-feae-4fee-abb9-c5cc899f4d13)
 
-It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate.
+It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate. Also, the highest transaction revenue city is 'not available in demo dataset' which should be considered as a NULL value and again, reflecting that the database is incomplete. 
 
 
 
