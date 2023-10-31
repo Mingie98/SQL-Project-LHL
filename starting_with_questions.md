@@ -187,7 +187,7 @@ ORDER BY country, COUNT(units_sold) DESC;
 
 ![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/a51f42ff-8bca-4298-9c3b-2fb3928c104e)
 
-For the most of the countries the top 3 categories are between Apparel, Shop by brand and accessories 
+The top categories amongst the countries are between Apparel, Shop by brand, electronics and accessories 
 
 
 **Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
