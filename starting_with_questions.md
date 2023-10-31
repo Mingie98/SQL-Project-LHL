@@ -194,14 +194,40 @@ The top categories amongst the countries are between Apparel, Shop by brand, ele
 
 
 ### SQL Queries:
+```
+-- creating a temp table with relevant info on products from all_sessions and units_sold column from analytics table
+CREATE TEMP TABLE productinfo(
+	fullvisitorid VARCHAR,
+	country VARCHAR,
+	city VARCHAR,
+	v2productname VARCHAR,
+	units_sold INT
+);
 
+INSERT INTO productinfo(fullvisitorid, country, city, v2productname, units_sold)
+SELECT 
+    als.fullvisitorid,
+    als.country,
+    als.city,
+    als.v2productname,
+	CAST(a.units_sold AS INT)
+FROM all_sessions als
+JOIN analytics a ON als.fullvisitorid = a.fullvisitorid
+WHERE CAST(a.units_sold AS INT) >= 1; -- filtering out NULL values and 0 values
 
-
+-- returns number of units sold of each product by country
+SELECT country, v2productname, SUM(units_sold) AS units_sold
+FROM productinfo
+GROUP BY country, v2productname
+ORDER BY country, SUM(units_sold) DESC
+```
 ### Answer:
 
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/fa950b23-0bac-4ca9-870a-733acc2bf751)
 
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/e57b2fae-bcd4-4066-8c94-1fe52927f6e7)
 
-
+It doesn't appear that there are any note worthy patterns
 
 ## **Question 5: Can we summarize the impact of revenue generated from each city/country?**
 
