@@ -190,30 +190,72 @@ ORDER BY country, SUM(units_sold) DESC;
 The top categories amongst the countries are between Apparel, Shop by brand, electronics and accessories 
 
 
-**Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
+## **Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
 
 
-SQL Queries:
-
-
-
-Answer:
+### SQL Queries:
 
 
 
-
-
-**Question 5: Can we summarize the impact of revenue generated from each city/country?**
-
-SQL Queries:
-
-
-
-Answer:
+### Answer:
 
 
 
 
 
+## **Question 5: Can we summarize the impact of revenue generated from each city/country?**
+
+### SQL Queries:
+```
+-- creating a temp table with relevant info on products from all_sessions and units_sold & unit_price columns from analytics table
+CREATE TEMP TABLE productinfo(
+	fullvisitorid VARCHAR,
+	country VARCHAR,
+	city VARCHAR,
+	productsku VARCHAR,
+	v2productname VARCHAR,
+	units_sold INT,
+	unit_price NUMERIC,
+	total_price NUMERIC -- This is not from an existing table, we get it by multiplying units_sold with unit_price which will be done in the INSERT statement below
+);
+
+INSERT INTO productinfo(fullvisitorid, country, city, productsku, v2productname, units_sold, unit_price, total_price)
+SELECT 
+    als.fullvisitorid,
+    als.country,
+    als.city,
+    als.productsku,
+    als.v2productname,
+    CAST(a.units_sold AS INT), 
+    ROUND(CAST(a.unit_price AS NUMERIC) / 1000000, 2), -- Round to 2 decimal places
+    CAST(a.units_sold AS INT) * ROUND(CAST(a.unit_price AS NUMERIC) / 1000000, 2) AS total_price -- Round to 2 decimal places  
+FROM all_sessions als
+JOIN analytics a ON als.fullvisitorid = a.fullvisitorid
+WHERE CAST(a.units_sold AS INT) >= 1; -- filtering out NULL values and 0 values
+
+-- returns the total revenue per country in descending order
+SELECT country, SUM(total_price) AS total_revenue
+FROM productinfo
+GROUP BY country
+ORDER BY SUM(total_price) DESC;
+
+-- returns the total revenue per country and city in descending order
+SELECT country, city, SUM(total_price) AS total_revenue
+FROM productinfo
+WHERE city <> 'not available in demo dataset' AND city <> '(not set)' -- removed undefined data
+GROUP BY country, city
+ORDER BY SUM(total_price) DESC;
+```
+### Answer:
+
+Countries with the highest revenue generated:
+
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/08f4e582-2e75-4fed-932f-cccd6fbaa4f4)
+
+Cities with the highest revenue generated:
+
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/dd679ed4-0aba-4144-8796-3a9b7b5aa99b)
+
+The top 3 countries with the most revenue generated are the United States, Czechia and Canada. It comes with no surprise that the cities with the most revenues are from the United States with them being in the top 17. Toronto, Canada comes after at the 18th spot. The reason why the number 2 country of Czechia has no cities in the top spot is because of the 'not available in demo dataset' missing data
 
 
