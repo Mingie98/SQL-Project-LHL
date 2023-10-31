@@ -71,7 +71,6 @@ INSERT INTO productsold (fullvisitorid, country, city, quantityordered)
 		CAST(a.units_sold AS INT) -- renamed to quantityordered in the temp table
 	FROM all_sessions als
 	JOIN analytics a ON als.fullvisitorid = a.fullvisitorid
-	JOIN products
 	WHERE CAST(a.units_sold AS INT) >= 1 -- filtering out NULL values and 0 values;
 
 -- returns average quantity ordered from visitors by country
