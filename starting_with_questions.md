@@ -60,7 +60,7 @@ CREATE TEMP TABLE productsold(
 	fullvisitorid VARCHAR,
 	country VARCHAR,
 	city VARCHAR,
-	quantityordered INT,
+	quantityordered INT
 );
 
 INSERT INTO productsold (fullvisitorid, country, city, quantityordered)
