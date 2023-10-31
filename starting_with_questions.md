@@ -176,16 +176,16 @@ INSERT INTO productinfo(fullvisitorid, country, city, productsku, v2productname,
 	WHERE CAST(a.units_sold AS INT) >= 1; -- filtering out NULL values and 0 values
 
 -- Returns categories with the most purchases in descending order by country
-SELECT country, v2productcategory, COUNT(units_sold)
+SELECT country, v2productcategory, SUM(units_sold) AS product_sold
 FROM productinfo
 GROUP BY country, v2productcategory
-ORDER BY country, COUNT(units_sold) DESC;
+ORDER BY country, SUM(units_sold) DESC;
 ```
 ### Answer:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/b8d6fcc7-053f-4842-9b1c-cd7e04284998)
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/b734c909-4133-46dd-9d2f-205429a3ed35)
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/a51f42ff-8bca-4298-9c3b-2fb3928c104e)
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/a3ca5562-c5a0-4bc2-ace4-e86aee7f81e3)
 
 The top categories amongst the countries are between Apparel, Shop by brand, electronics and accessories 
 
