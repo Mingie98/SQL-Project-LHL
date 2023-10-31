@@ -1,11 +1,11 @@
-Answer the following questions and provide the SQL queries used to find the answer.
+# Answer the following questions and provide the SQL queries used to find the answer.
 
     
-**Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
+## **Question 1: Which cities and countries have the highest level of transaction revenues on the site?**
 
 
-SQL Queries:
-
+### SQL Queries:
+```
 -- Creating a temp table with totaltransactionrevenue cleaned of extra 0s
 CREATE TEMP TABLE all_sessionsv1(
 	country VARCHAR,
@@ -32,10 +32,10 @@ SELECT country, city, SUM(totaltransactionrevenue)
 FROM all_sessionsv1 
 WHERE city <> 'not available in demo dataset' -- filtering out cities that are not defined
 GROUP BY country, city
-ORDER BY SUM(totaltransactionrevenue) DESC;
+ORDER BY SUM(totaltransactionrevenue) DESC; 
+```
 
-
-Answer:
+### Answer:
 
 The country with the highest level of transaction revenue is the United States with 13,154.17
 
@@ -50,11 +50,11 @@ The cities with the highest level of transaction revenue:
 
 
 
-**Question 2: What is the average number of products ordered from visitors in each city and country?**
+## **Question 2: What is the average number of products ordered from visitors in each city and country?**
 
 
-SQL Queries:
-
+### SQL Queries:
+```
 -- Creating a temp table that joins columns from all_sessions and analytics tables (quantityordered = units_sold FROM analytics)
 CREATE TEMP TABLE productsold(
 	fullvisitorid VARCHAR,
@@ -113,8 +113,9 @@ FROM
     citytotals
 WHERE city <> 'not available in demo dataset' -- filtering out undefined data 
 ORDER BY avg_quantityordered DESC;
+```
 
-Answer:
+### Answer:
 
 Average number of products ordered from visitors by country:
 
