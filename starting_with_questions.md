@@ -128,17 +128,66 @@ Average number of products ordered from visitors by country and city:
 *Some city/country have very few unique visitors which can skew the results of the average number of products ordered. If they have a high average number of orders it could possibly be a company buying in bulk like in the case of Charlotte, United States.
 
 
-**Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
+## **Question 3: Is there any pattern in the types (product categories) of products ordered from visitors in each city and country?**
 
 
-SQL Queries:
+### SQL Queries:
+```
+-- creating a temp table with relevant info on products from all_sessions and units_sold column from analytics table
+CREATE TEMP TABLE productinfo(
+	fullvisitorid VARCHAR,
+	country VARCHAR,
+	city VARCHAR,
+	productsku VARCHAR,
+	v2productname VARCHAR,
+	v2productcategory VARCHAR,
+	units_sold INT
+);
 
+INSERT INTO productinfo(fullvisitorid, country, city, productsku, v2productname, v2productcategory, units_sold)
+	SELECT 
+		als.fullvisitorid,
+		als.country,
+		als.city,
+		als.productsku,
+		als.v2productname,
+		CASE 
+			WHEN als.v2productcategory LIKE '%Apparel%' THEN 'Apparel'
+			WHEN als.v2productcategory LIKE '%Bags%' THEN 'Bags'
+			WHEN als.v2productcategory LIKE '%Bottles%' THEN 'Drinkware'
+			WHEN als.v2productcategory LIKE '%Drinkware%' THEN 'Drinkware'
+			WHEN als.v2productcategory LIKE '%Electronics%' THEN 'Electronics'
+			WHEN als.v2productcategory LIKE '%Headgear%' THEN 'Apparel'
+			WHEN als.v2productcategory LIKE '%Accessories%' THEN 'Accessories'
+			WHEN als.v2productcategory LIKE '%Apparel%' THEN 'Apparel'
+			WHEN als.v2productcategory LIKE '%Brand%' THEN 'Shop By Brand'
+			WHEN als.v2productcategory LIKE '%Electronics%' THEN 'Electronics'
+			WHEN als.v2productcategory LIKE '%Lifestyle%' THEN 'Lifestyle'
+			WHEN als.v2productcategory LIKE '%Nest%' THEN 'Shop By Brand'
+			WHEN als.v2productcategory LIKE '%Office%' THEN 'Office'
+			WHEN als.v2productcategory LIKE '%Waze%' THEN 'Shop By Brand'
+			WHEN als.v2productcategory LIKE '%Wearables%' THEN 'Apparel'
+			WHEN als.v2productcategory LIKE '%Youtube%' THEN 'Shop By Brand'
+			ELSE 'Other'
+		END AS productcategory, 
+		CAST(a.units_sold AS INT) 
+	FROM all_sessions als
+	JOIN analytics a ON als.fullvisitorid = a.fullvisitorid
+	WHERE CAST(a.units_sold AS INT) >= 1; -- filtering out NULL values and 0 values
 
+-- Returns categories with the most purchases in descending order by country
+SELECT country, v2productcategory, COUNT(units_sold)
+FROM productinfo
+GROUP BY country, v2productcategory
+ORDER BY country, COUNT(units_sold) DESC;
+```
+### Answer:
 
-Answer:
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/b8d6fcc7-053f-4842-9b1c-cd7e04284998)
 
+![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/a51f42ff-8bca-4298-9c3b-2fb3928c104e)
 
-
+For the most of the countries the top 3 categories are between Apparel, Shop by brand and accessories 
 
 
 **Question 4: What is the top-selling product from each city/country? Can we find any pattern worthy of noting in the products sold?**
