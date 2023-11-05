@@ -12,11 +12,11 @@ FROM analytics
 
 Unique number of visitors from the all_sessions table (14,223)
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/e7f31dbb-8082-4140-be50-a7de347f1ee0)
+![image](Screenshots/SQ1SC1.PNG)
 
 Unique number of visitors from the analytics table (120,018)
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/f9c83e2f-db4e-4f48-977c-dd91b2e22706)
+![image](Screenshots/SQ1SC2.PNG)
 
 The database seems to be extremely incomplete as there is a large discrepensies in the number of unique visitors between the all_sessions and analytics tables.
 
@@ -33,7 +33,7 @@ ORDER BY COUNT(channelgrouping) DESC
 
 Organic search is the most popular
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/fcb9a964-0d1d-4fb2-8c0c-f926f1e49381)
+![image](Screenshots/SQ2SC1.PNG)
 
 
 
@@ -48,9 +48,9 @@ ORDER BY country, COUNT(channelgrouping) DESC
 ```
 ### Answer:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/c72490b8-08f7-4a19-accc-29849b1576c0)
+![image](Screenshots/SQ3SC1.PNG)
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/b66e2f1c-7755-442d-ad10-1c46968864f9)
+![image](Screenshots/SQ3SC2.PNG)
 
 Organic search is the most popular channelgrouping amongst the majority of the countries
 
