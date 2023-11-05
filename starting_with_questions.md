@@ -119,11 +119,11 @@ ORDER BY avg_quantityordered DESC;
 
 Average number of products ordered from visitors by country:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/c4f679d5-be0c-4c57-8be0-5f9672042cd3)
+![image](Screenshots/Q2SC1.PNG)
 
 Average number of products ordered from visitors by country and city:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/c58f321c-841a-4593-8690-7be1ef880bc0)
+![image](Screenshots/Q2SC2.PNG)
 
 *Some city/country have very few unique visitors which can skew the results of the average number of products ordered. If they have a high average number of orders it could possibly be a company buying in bulk like in the case of Charlotte, United States.
 
@@ -183,9 +183,9 @@ ORDER BY country, SUM(units_sold) DESC;
 ```
 ### Answer:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/b734c909-4133-46dd-9d2f-205429a3ed35)
+![image](Screenshots/Q3SC1.PNG)
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/a3ca5562-c5a0-4bc2-ace4-e86aee7f81e3)
+![image](Screenshots/Q3SC2.PNG)
 
 The top categories amongst the countries are between Apparel, Shop by brand, electronics and accessories 
 
@@ -223,9 +223,9 @@ ORDER BY country, SUM(units_sold) DESC
 ```
 ### Answer:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/fa950b23-0bac-4ca9-870a-733acc2bf751)
+![image](Screenshots/Q4SC1.PNG)
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/e57b2fae-bcd4-4066-8c94-1fe52927f6e7)
+![image](Screenshots/Q4SC2.PNG)
 
 It doesn't appear that there are any note worthy patterns
 
@@ -276,11 +276,11 @@ ORDER BY SUM(total_price) DESC;
 
 Countries with the highest revenue generated:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/08f4e582-2e75-4fed-932f-cccd6fbaa4f4)
+![image](Screenshots/Q5SC1.PNG)
 
 Cities with the highest revenue generated:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/dd679ed4-0aba-4144-8796-3a9b7b5aa99b)
+![image](Screenshots/Q5SC2.PNG)
 
 The top 3 countries with the most revenue generated are the United States, Czechia and Canada. It comes with no surprise that the cities with the most revenues are from the United States with them being in the top 17. Toronto, Canada comes after at the 18th spot. The reason why the number 2 country of Czechia has no cities in the top spot is because of the 'not available in demo dataset' missing data
 
