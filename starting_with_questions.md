@@ -39,7 +39,7 @@ ORDER BY SUM(totaltransactionrevenue) DESC;
 
 The country with the highest level of transaction revenue is the United States with 13,154.17
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/34ec1e36-2236-4f20-ba3a-bff687ddf888)
+![image](Screenshots/Q1SC1) 
 
 The cities with the highest level of transaction revenue:
 
