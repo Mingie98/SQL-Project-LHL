@@ -39,11 +39,11 @@ ORDER BY SUM(totaltransactionrevenue) DESC;
 
 The country with the highest level of transaction revenue is the United States with 13,154.17
 
-![image](Screenshots/Q1SC1) 
+![image](Screenshots/Q1SC1.PNG) 
 
 The cities with the highest level of transaction revenue:
 
-![image](https://github.com/Mingie98/SQL-Project-LHL/assets/138625460/40e1eca5-dde1-44f0-9965-fb8b7bc992e9)
+![image](Screenshots/Q1SC2.PNG)
 
 *It is important to note however that the data is rather incomplete. After filtering out the NULL values from totaltransactionrevenue, we are left with only 81 rows. Drawing conclusion from such a small sample size, will likely be inacurate. Equally, when we look at cities, further chunk of data is filtered out due to the fact that many rows for cities are 'not anailable in demo dataset'.  
 
